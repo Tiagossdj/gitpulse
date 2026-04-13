@@ -1,7 +1,7 @@
-import { describe, expect, it } from "vitest"
+import { describe, expect, it } from "vitest";
 
 describe("api", () => {
-  it("loads test runner", () => {
-    expect(true).toBe(true)
-  })
-})
+	it("loads test runner", () => {
+		expect(true).toBe(true);
+	});
+});

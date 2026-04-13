@@ -1,12 +1,11 @@
-import Redis from "ioredis"
-import { getEnv } from "../config/env.js"
+import Redis from "ioredis";
+import { getEnv } from "../config/env.js";
 
-let client: Redis | null = null
+let client: Redis | null = null;
 
 export function redis() {
-  if (client) return client
-  const { REDIS_URL } = getEnv()
-  client = new Redis(REDIS_URL)
-  return client
+	if (client) return client;
+	const { REDIS_URL } = getEnv();
+	client = new Redis(REDIS_URL);
+	return client;
 }
-

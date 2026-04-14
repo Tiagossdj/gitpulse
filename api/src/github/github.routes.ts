@@ -15,4 +15,10 @@ export async function githubRoutes(app: FastifyInstance) {
 		reply.header("X-Cache-TTL", String(result.cache.ttl));
 		return result.data;
 	});
+
+	app.delete("/repo/:owner/:name/cache", async (request) => {
+		const { owner, name } = request.params as { owner: string; name: string };
+		await service.invalidateRepoCache(owner, name);
+		return { invalidated: true };
+	});
 }

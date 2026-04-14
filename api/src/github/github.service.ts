@@ -17,17 +17,34 @@ export function createGitHubService(deps: { github: GitHubRepository }) {
 			const { CACHE_TTL } = getEnv();
 			const key = `repo:${owner}:${name}`;
 
-			const cached = await redis().get(key);
-			if (cached) {
-				const ttl = await redis().ttl(key);
-				const data = JSON.parse(cached) as RepoHealth;
-				return { data, cache: { hit: true, ttl } };
+			try {
+				const cached = await redis().get(key);
+				if (cached) {
+					const ttl = await redis().ttl(key);
+					const data = JSON.parse(cached) as RepoHealth;
+					return { data, cache: { hit: true, ttl } };
+				}
+			} catch {
+				// Cache is best-effort. If Redis is unavailable, continue without cache.
 			}
 
 			const data = await deps.github.getRepoHealth(owner, name);
-			await redis().set(key, JSON.stringify(data), "EX", CACHE_TTL);
+			try {
+				await redis().set(key, JSON.stringify(data), "EX", CACHE_TTL);
+			} catch {
+				// ignore cache write failures
+			}
 
 			return { data, cache: { hit: false, ttl: CACHE_TTL } };
+		},
+
+		async invalidateRepoCache(owner: string, name: string) {
+			const key = `repo:${owner}:${name}`;
+			try {
+				await redis().del(key);
+			} catch {
+				// ignore cache delete failures
+			}
 		},
 	};
 }

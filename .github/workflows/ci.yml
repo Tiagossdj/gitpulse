@@ -36,3 +36,11 @@ jobs:
 
       - name: API — lint
         run: pnpm --filter @gitpulse/api run lint
+
+      - name: Web — lint
+        run: pnpm --filter @gitpulse/web run lint
+
+      - name: Web — build
+        env:
+          NEXT_PUBLIC_API_BASE_URL: http://localhost:3000
+        run: pnpm --filter @gitpulse/web run build

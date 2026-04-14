@@ -21,7 +21,7 @@ export type Contributor = {
   url: string;
 };
 
-export interface RepoHealth {
+export type RepoHealth = {
   owner: string;
   name: string;
   description: string | null;
@@ -33,4 +33,4 @@ export interface RepoHealth {
   staleIssues: Issue[];
   topContributors: Contributor[];
   cachedAt: string;
-}
+};

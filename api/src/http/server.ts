@@ -8,7 +8,7 @@ export function buildServer() {
   const app = Fastify();
 
   app.register(cors, {
-    origin: true,
+    origin: ["http://localhost:3000", "https://gitpulse-delta.vercel.app"],
     exposedHeaders: ["X-Cache", "X-Cache-TTL"],
   });
   app.setErrorHandler(errorHandler);

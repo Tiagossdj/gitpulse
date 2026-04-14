@@ -14,10 +14,10 @@
     "typescript": "^5.8.0",
     "vitest": "^3.0.0"
   },
-"scripts": {
-  "dev": "tsx watch src/http/index.ts",
-  "build": "tsc -p tsconfig.json",
-  "start": "tsx src/http/index.ts",
-  "lint": "biome check ."
-}
+  "scripts": {
+    "dev": "tsx watch src/http/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "tsx src/http/index.ts",
+    "lint": "biome check ."
+  }
 }

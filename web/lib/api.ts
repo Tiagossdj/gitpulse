@@ -29,8 +29,8 @@ export async function fetchRepoHealth(
     cache: "no-store",
   });
 
-  const xCache = res.headers.get("X-Cache");
-  const xTtl = res.headers.get("X-Cache-TTL");
+  const xCache = res.headers.get("x-cache") || res.headers.get("X-Cache") || "";
+  const xTtl = res.headers.get("x-cache-ttl") || res.headers.get("X-Cache-TTL");
 
   if (!res.ok) {
     const body = (await res.json().catch(() => ({}))) as { message?: string };
@@ -41,7 +41,7 @@ export async function fetchRepoHealth(
 
   return {
     data,
-    cacheHit: xCache === "HIT",
-    cacheTtl: xTtl !== null && xTtl !== "" ? Number(xTtl) : null,
+    cacheHit: xCache.toUpperCase().includes("HIT"),
+    cacheTtl: xTtl ? Number(xTtl) : null,
   };
 }

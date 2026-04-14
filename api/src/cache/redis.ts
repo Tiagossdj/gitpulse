@@ -9,8 +9,14 @@ export function redis() {
   client = new Redis(REDIS_URL, {
     lazyConnect: true,
     enableOfflineQueue: false,
+
+    tls: REDIS_URL.startsWith("rediss://")
+      ? { rejectUnauthorized: false }
+      : undefined,
   });
   // Avoid crashing the process when Redis is down.
-  client.on("error", () => {});
+  client.on("error", (error) => {
+    console.error("Redis error:", error);
+  });
   return client;
 }

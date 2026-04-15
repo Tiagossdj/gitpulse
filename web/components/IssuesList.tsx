@@ -19,7 +19,7 @@ function formatTimeAgo(dateString: string) {
   const diffInDays = Math.floor(diffInHours / 24);
   if (diffInDays < 30) return `${diffInDays}d ago`;
   const diffInMonths = Math.floor(diffInDays / 30);
-  return `${diffInMonths}mo ago`;
+  return `${diffInMonths} months ago`;
 }
 
 export function IssuesList({ issues }: Props) {
@@ -66,10 +66,12 @@ export function IssuesList({ issues }: Props) {
                   <p className="mb-1 line-clamp-2 text-sm transition-colors group-hover:text-primary">
                     {issue.title}
                   </p>
-                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                    <span className="mono">#{issue.id}</span>
-                    <span>by {issue.author}</span>
-                    <span className="flex items-center gap-1">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                    <span className="mono shrink-0">#{issue.id}</span>
+                    <span className="truncate max-w-[80px] sm:max-w-none">
+                      by {issue.author}
+                    </span>
+                    <span className="flex items-center gap-1 shrink-0">
                       <Clock className="h-3 w-3" />
                       {formatTimeAgo(issue.updatedAt || issue.createdAt)}
                     </span>

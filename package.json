@@ -10,9 +10,10 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "**/*.{ts,tsx}": "biome check --no-errors-on-unmatched"
+    "**/*.{ts,tsx}": "pnpm exec biome check --no-errors-on-unmatched"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.9.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0"
   }

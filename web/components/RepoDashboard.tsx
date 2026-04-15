@@ -25,10 +25,10 @@ export function RepoDashboard({ repo, cacheHit }: Props) {
       >
         <div className="absolute -top-4 -left-4 h-32 w-32 rounded-full bg-primary/5 blur-2xl" />
 
-        <div className="relative flex items-start justify-between gap-4">
-          <div className="flex-1">
-            <div className="group inline-block">
-              <h2 className="relative mb-2 inline-block text-4xl tracking-tight">
+        <div className="relative flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+          <div className="flex-1 min-w-0">
+            <div className="group inline-block max-w-full">
+              <h2 className="relative mb-2 inline-block text-2xl sm:text-4xl tracking-tight break-all sm:break-normal">
                 <span className="text-muted-foreground transition-colors group-hover:text-foreground">
                   {repo.owner}
                 </span>
@@ -50,10 +50,10 @@ export function RepoDashboard({ repo, cacheHit }: Props) {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3 }}
-              className="group relative flex shrink-0 items-center gap-2 overflow-hidden rounded-xl border border-primary/20 bg-primary/10 px-4 py-2.5 text-sm backdrop-blur-sm"
+              className="self-start group relative flex shrink-0 items-center gap-2 overflow-hidden rounded-xl border border-primary/20 bg-primary/10 px-4 py-2.5 text-sm backdrop-blur-sm"
             >
               <div className="absolute inset-0 bg-linear-to-r from-primary/10 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-              <Calendar className="relative z-10 h-4 w-4 text-primary" />
+              <Calendar className="shrink-0 h-4 w-4 text-primary" />
               <div className="relative z-10">
                 <p className="mono text-xs text-muted-foreground">CACHED</p>
                 <p className="mono text-xs text-primary">

@@ -50,7 +50,7 @@ export default function HomePage() {
           transition={{ duration: 0.6 }}
           className="border-b border-border/50 bg-background/50 backdrop-blur-xl"
         >
-          <div className="mx-auto max-w-7xl px-6 py-6">
+          <div className="mx-auto max-w-7xl px-4 py-4 md:px-6 md:py-6">
             <div className="flex items-center gap-3">
               <div className="rounded-xl bg-linear-to-br from-primary/20 to-accent/20 p-2.5">
                 <Activity className="h-6 w-6 text-primary" />
@@ -100,7 +100,7 @@ export default function HomePage() {
                     </span>
                   </motion.div>
 
-                  <h2 className="text-5xl tracking-tight leading-tight lg:text-6xl">
+                  <h2 className="text-4xl tracking-tight leading-tight sm:text-5xl lg:text-6xl">
                     <motion.span
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -149,10 +149,14 @@ export default function HomePage() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.7 }}
-                  className="mono relative z-10 mt-12 text-sm text-muted-foreground"
+                  className="mono relative z-10 mt-12 text-center px-4 text-sm text-muted-foreground"
                 >
-                  <span className="opacity-60">Try:</span> facebook/react ·
-                  vercel/next.js · microsoft/vscode
+                  <span className="opacity-60 block mb-1 sm:inline sm:mb-0">
+                    Try:
+                  </span>
+                  <span className="inline-block">
+                    facebook/react · vercel/next.js · microsoft/vscode
+                  </span>
                 </motion.div>
               </motion.div>
             ) : null}
@@ -261,11 +265,14 @@ export default function HomePage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
-          className="fixed bottom-0 left-0 right-0 border-t border-border/50 bg-background/50 backdrop-blur-xl"
+          className="relative border-t border-border/50 bg-background/50 backdrop-blur-xl md:fixed md:bottom-0 md:left-0 md:right-0"
         >
-          <div className="mx-auto max-w-7xl px-6 py-4">
-            <div className="flex items-center justify-between text-sm text-muted-foreground">
-              <p className="mono">Powered by GitHub API + Redis Cache</p>
+          <div className="mx-auto max-w-7xl px-4 py-6 md:px-6 md:py-4">
+            <div className="flex flex-col items-center justify-center gap-y-4 text-sm text-muted-foreground md:flex-row md:justify-between md:gap-y-0">
+              <p className="mono text-center md:text-left">
+                Powered by GitHub API + Redis Cache
+              </p>
+
               <div className="flex items-center gap-6">
                 <span className="flex items-center gap-2">
                   <span className="h-2 w-2 animate-pulse rounded-full bg-green-500" />

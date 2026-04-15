@@ -84,11 +84,13 @@ export const githubRepository: GitHubRepository = {
         (issue: {
           id: number;
           title: string;
+          user: { login: string };
           html_url: string;
           created_at: string;
         }) => ({
           id: issue.id,
           title: issue.title,
+          author: issue.user.login,
           url: issue.html_url,
           createdAt: issue.created_at,
         }),

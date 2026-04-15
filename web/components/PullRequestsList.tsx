@@ -19,7 +19,7 @@ function formatTimeAgo(dateString: string) {
   const diffInDays = Math.floor(diffInHours / 24);
   if (diffInDays < 30) return `${diffInDays}d ago`;
   const diffInMonths = Math.floor(diffInDays / 30);
-  return `${diffInMonths}mo ago`;
+  return `${diffInMonths} months ago`;
 }
 
 export function PullRequestsList({ pullRequests }: Props) {
@@ -28,7 +28,7 @@ export function PullRequestsList({ pullRequests }: Props) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2, duration: 0.4 }}
-      className="rounded-xl border border-border bg-card p-6"
+      className="rounded-xl border border-border bg-card p-4 sm:p-6"
     >
       <div className="mb-6 flex items-center gap-3">
         <div className="rounded-lg bg-linear-to-br from-blue-500/20 to-blue-600/20 p-2.5">
@@ -66,10 +66,12 @@ export function PullRequestsList({ pullRequests }: Props) {
                   <p className="mb-1 line-clamp-2 text-sm transition-colors group-hover:text-primary">
                     {pr.title}
                   </p>
-                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
                     <span className="mono">#{pr.id}</span>
-                    <span>by {pr.author}</span>
-                    <span className="flex items-center gap-1">
+                    <span className="truncate max-w-[80px] sm:max-w-none">
+                      by {pr.author}
+                    </span>
+                    <span className="flex items-center gap-1 shrink-0">
                       <Clock className="h-3 w-3" />
                       {formatTimeAgo(pr.createdAt)}
                     </span>

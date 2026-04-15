@@ -1,12 +1,14 @@
 # 🚀 GitPulse — GitHub Repository Health Monitor
 
-> A real-time monitoring dashboard that analyzes repository health, contributor activity, and issue velocity for public repositories.
+> A caching-first dashboard that turns raw GitHub data into a clean 
+> repository health summary — powered by Redis and the GitHub REST API.
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript)](https://www.typescriptlang.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org/)
 [![Fastify](https://img.shields.io/badge/Fastify-5.x-black?logo=fastify)](https://fastify.dev/)
-[![Redis](https://img.shields.io/badge/Redis-Cache-red?logo=redis)](https://redis.io/)
+[![Redis](https://img.shields.io/badge/Redis-7-DC382D?logo=redis&logoColor=white)](https://redis.io/)
 [![Biome](https://img.shields.io/badge/Biome-Lint-60a5fa?logo=biome)](https://biomejs.dev/)
+[![Vitest](https://img.shields.io/badge/Vitest-1.x-6E9F18?logo=vitest)](https://vitest.dev/)
 
 ---
 
@@ -16,24 +18,29 @@
 - [Tech Stack](#tech-stack)
 - [Architecture](#architecture)
 - [Environment Variables](#environment-variables)
+- [Getting-Started](#getting-started)
 - [Future Improvements](#future-improvements)
 
 ---
 
 ## About
 
-**GitPulse** is a diagnostic tool for developers. It transforms raw GitHub data into actionable insights, calculating "Health Scores" based on PR turnover and issue resolution time. 
+GitPulse is a developer tool that fetches and displays a health summary 
+of any public GitHub repository — stars, forks, open PRs, stale issues, 
+and top contributors.
 
-Currently, the tool is optimized for **Public Repositories**, providing a "Pulse Check" on community engagement and project maintenance.
+The core technical focus is the **Cache-Aside pattern with Redis**: 
+repeated requests for the same repository are served instantly from cache, 
+avoiding GitHub API rate limits.
 
 ---
 
 ## Key Features
 
-- **Health Score Algorithm:** Logic based on open vs. closed issues/PRs ratio.
-- **Activity Monitoring:** Tracks the latest contributions and issue velocity.
-- **Smart Caching:** Utilizes Redis to optimize GitHub API rate limits.
+- **Smart Caching:** Redis Cache-Aside pattern — repeated requests are served instantly, avoiding GitHub API rate limits.
+- **Repository Summary:** Stars, forks, language, open PRs, stale issues and top contributors in a single request.
 - **Modern UI:** Built with Tailwind CSS v4 and Framer Motion for smooth interactions.
+- **Rate Limit Awareness:** Visual feedback when cache is hit vs. fresh fetch.
 
 ---
 
@@ -59,7 +66,7 @@ Currently, the tool is optimized for **Public Repositories**, providing a "Pulse
 
 ## Architecture
 
-O fluxo de dados prioriza a performance através do padrão **Cache-Aside**, garantindo que as chamadas à API do GitHub sejam otimizadas.
+Data flow prioritizes performance through the **Cache-Aside pattern**, ensuring GitHub API calls are minimized on repeated requests.
 
 ```mermaid
 ---
@@ -89,11 +96,62 @@ flowchart TD
 ### API (`/api/.env`)
 ```env
 PORT=3000
-GITHUB_ACCESS_TOKEN=your_token_here
+GITHUB_TOKEN=your_token_here
 REDIS_URL=your_redis_url
 ```
 
 ---
+
+## Getting Started
+
+### Prerequisites
+- Node.js 20+
+- pnpm
+- Docker
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/tiagossdj/gitpulse.git
+cd gitpulse
+```
+
+### 2. Install dependencies
+
+```bash
+pnpm install
+```
+
+### 3. Start Redis
+
+```bash
+docker compose up -d
+```
+
+### 4. Set up environment variables
+
+```bash
+cp api/.env.example api/.env
+```
+
+Edit `api/.env` and add your GitHub token:
+
+```env
+GITHUB_TOKEN=ghp_your_token_here
+```
+
+> Generate a token at **github.com → Settings → Developer settings → Personal access tokens → Fine-grained tokens**  
+> Set Repository access to **Public repositories**. No extra permissions needed.  
+> Without a token: 60 req/h — with token: 5000 req/h.
+
+### 5. Start the development servers
+
+```bash
+pnpm dev
+```
+
+- API: http://localhost:3000
+- Web: http://localhost:3001
 
 ## Future Improvements
 

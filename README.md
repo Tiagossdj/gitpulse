@@ -69,12 +69,7 @@ avoiding GitHub API rate limits.
 Data flow prioritizes performance through the **Cache-Aside pattern**, ensuring GitHub API calls are minimized on repeated requests.
 
 ```mermaid
----
-config:
-  layout: dagre
-  theme: mc
-  look: neo
----
+%%{init: {'layout': 'dagre', 'theme': 'mc', 'look': 'neo'}}%%
 flowchart TD
     User["User"] -- HTTP Request --> Web["Web App"]
     Web -- GET /repo/:owner/:name --> API["Fastify API"]
